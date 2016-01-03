@@ -1,148 +1,146 @@
-[ Languages:
+[ Dostępne tłumaczenia:
 [English](README.md), [Español](README-es.md), [Italiano](README-it.md), [日本語](README-ja.md), [한국어](README-ko.md), [Polski](README-pl.md), [Português](README-pt.md), [Русский](README-ru.md), [Slovenščina](README-sl.md), [Українська](README-uk.md), [中文](README-zh.md)
 ]
 
 
-# The Art of Command Line
+# Sztuka posługiwania się linią komend
 
-[![Join the chat at https://gitter.im/jlevy/the-art-of-command-line](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jlevy/the-art-of-command-line?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Przyłącz się do rozmowy na https://gitter.im/jlevy/the-art-of-command-line](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/jlevy/the-art-of-command-line?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 - [Meta](#meta)
-- [Basics](#basics)
-- [Everyday use](#everyday-use)
-- [Processing files and data](#processing-files-and-data)
-- [System debugging](#system-debugging)
-- [One-liners](#one-liners)
-- [Obscure but useful](#obscure-but-useful)
-- [OS X only](#os-x-only)
-- [More resources](#more-resources)
-- [Disclaimer](#disclaimer)
+- [Podstawy](#podstawy)
+- [Codzienne użytkowanie](#codzienne-użytkowanie)
+- [Przetwarzanie plików i danych](#przetwarzanie-plików-i-danych)
+- [Degubowanie systemu](#debugowanie-systemu)
+- [Jednolinijkowce](#jednolinijkowce)
+- [Niejasne ale przydatne](#niejasne-ale-przydatne)
+- [Tylko dla OS X](#tylko-dla-osx)
+- [Więcej zasobów](#więcej-zasobów)
+- [Oświadczenie](#oświadczenie)
 
 
 ![curl -s 'https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md' | egrep -o '`\w+`' | tr -d '`' | cowsay -W50](cowsay.png)
 
-Fluency on the command line is a skill often neglected or considered arcane, but it improves your flexibility and productivity as an engineer in both obvious and subtle ways. This is a selection of notes and tips on using the command-line that we've found useful when working on Linux. Some tips are elementary, and some are fairly specific, sophisticated, or obscure. This page is not long, but if you can use and recall all the items here, you know a lot.
+Płynność w posługiwaniu się linią komend jest umiejętnością często zaniedbywaną albo uznawaną za wiedzę tajemną, która poprawia twoją zwinność i produktywność jako inżyniera. Dokument ten jest zbiorem notatek i wskazówek na temat korzystania z linii poleceń, które uznałem za użyteczne podczas pracy z systemem Linuks. Znajdziesz tutaj wskazówki o różnym stopniu zaawansowania. Ta strona nie jest zbyt długa, ale jeśli potrafisz z pamięci użyć zawarte tutaj komendy, wiesz naprawdę sporo.
 
-This work is the result of [many authors and translators](AUTHORS.md).
-Much of this
-[originally](http://www.quora.com/What-are-some-lesser-known-but-useful-Unix-commands)
-[appeared](http://www.quora.com/What-are-the-most-useful-Swiss-army-knife-one-liners-on-Unix)
-on [Quora](http://www.quora.com/What-are-some-time-saving-tips-that-every-Linux-user-should-know),
-but given the interest there, it seemed worth using GitHub, where people more talented than the original author could readily suggest improvements. If you see an error or something that could be better, please submit an issue or PR! (Of course please review the meta section and existing PRs/issues first.)
-
+Praca jest wynikiem współpracy [wielu autorów i tłumaczy](AUTHORS.md).
+Wiele z zawartych tutaj informacji 
+[oryginalnie](http://www.quora.com/What-are-some-lesser-known-but-useful-Unix-commands)
+[pojawiło się](http://www.quora.com/What-are-the-most-useful-Swiss-army-knife-one-liners-on-Unix)
+na [Quora](http://www.quora.com/What-are-some-time-saving-tips-that-every-Linux-user-should-know),
+i widząc zaintereowanie tam, wydało mi się, iż użycie Githuba ma większy sens, gdzie ludzie z większym talentem niż autor oryginalnego postu mogliby proponować ulepszenia. Jeśli widzisz błąd albo coś co może być przedstawione lepiej, zgłość go albo dostarcz rozwiązanie w postaci PR! (Oczywiście należy najpierw zapoznać się z sekcją Meta tego dokumentu jak i istniejącymi PR/błędami)
 
 ## Meta
 
-Scope:
+Cel dokumentu:
 
-- This guide is both for beginners and the experienced. The goals are *breadth* (everything important), *specificity* (give concrete examples of the most common case), and *brevity* (avoid things that aren't essential or digressions you can easily look up elsewhere). Every tip is essential in some situation or significantly saves time over alternatives.
-- This is written for Linux, with the exception of the "[OS X only](#os-x-only)" section. Many of the other items apply or can be installed on other Unices or MacOS (or even Cygwin).
-- The focus is on interactive Bash, though many tips apply to other shells and to general Bash scripting.
-- It includes both "standard" Unix commands as well as ones that require special package installs -- so long as they are important enough to merit inclusion.
+- Ten przewodnik jest zarówno dla początkujących jak i zaawansowanych. Celem jest *zakres* (wszystko jest ważne), *specyficzność* (daj konkretne przykłady najpopularniejszych przypadków użycia) oraz *treściwość* (unikaj rzeczy które nie są istotne albo dygresji które można wyszukać gdzieś indziej). Każda wskazówka jest ważna: w jakimś konkretnym przypadku lub gdy znacząco skraca czas nad alternatywami.
+- Jest przeznaczony dla osób pracujących w systemie Linux, z wyjątkiem sekcji "[Tylko dla OS X](#tylko-dla-osx)". Wiele z opisanych przykładów tyczy się także innych Unixów lub MacOS (albo nawet Cygwin).
+- Skupiamy się głównie na interaktywnym Bashu, mimo iż wiele wskazówek może zostać użyta w innych powłokach oraz w skryptach bashowych.
+- Zawiera zarówno "standardowe" komendy Unixa, jak również te które wymagają specjalnych doinstalowanych paczek -- o ile są wystarczająco ważne aby zasłużyć na włączenie ich do dokumentu.
 
-Notes:
+Notatki:
 
-- To keep this to one page, content is implicitly included by reference. You're smart enough to look up more detail elsewhere once you know the idea or command to Google. Use `apt-get`/`yum`/`dnf`/`pacman`/`pip`/`brew` (as appropriate) to install new programs.
-- Use [Explainshell](http://explainshell.com/) to get a helpful breakdown of what commands, options, pipes etc. do.
-
-
-## Basics
-
-- Learn basic Bash. Actually, type `man bash` and at least skim the whole thing; it's pretty easy to follow and not that long. Alternate shells can be nice, but Bash is powerful and always available (learning *only* zsh, fish, etc., while tempting on your own laptop, restricts you in many situations, such as using existing servers).
-
-- Learn at least one text-based editor well. Ideally Vim (`vi`), as there's really no competition for random editing in a terminal (even if you use Emacs, a big IDE, or a modern hipster editor most of the time).
-
-- Know how to read documentation with `man` (for the inquisitive, `man man` lists the section numbers, e.g. 1 is "regular" commands, 5 is files/conventions, and 8 are for administration). Find man pages with `apropos`. Know that some commands are not executables, but Bash builtins, and that you can get help on them with `help` and `help -d`.
-
-- Learn about redirection of output and input using `>` and `<` and pipes using `|`. Know `>` overwrites the output file and `>>` appends. Learn about stdout and stderr.
-
-- Learn about file glob expansion with `*` (and perhaps `?` and `[`...`]`) and quoting and the difference between double `"` and single `'` quotes. (See more on variable expansion below.)
-
-- Be familiar with Bash job management: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill`, etc.
-
-- Know `ssh`, and the basics of passwordless authentication, via `ssh-agent`, `ssh-add`, etc.
-
-- Basic file management: `ls` and `ls -l` (in particular, learn what every column in `ls -l` means), `less`, `head`, `tail` and `tail -f` (or even better, `less +F`), `ln` and `ln -s` (learn the differences and advantages of hard versus soft links), `chown`, `chmod`, `du` (for a quick summary of disk usage: `du -hs *`). For filesystem management, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Learn what an inode is (`ls -i` or `df -i`).
-
-- Basic network management: `ip` or `ifconfig`, `dig`.
-
-- Know regular expressions well, and the various flags to `grep`/`egrep`. The `-i`, `-o`, `-v`, `-A`, `-B`, and `-C` options are worth knowing.
-
-- Learn to use `apt-get`, `yum`, `dnf` or `pacman` (depending on distro) to find and install packages. And make sure you have `pip` to install Python-based command-line tools (a few below are easiest to install via `pip`).
+- Aby utrzymać dokument jako jedną stronę, zawartość jest domyślnie zawarta w formie odniesień. Jesteś wystarczająco mądry aby poszukać detali gdzieś indziej (np. w wyszukiwarce Google) kiedy rozumiesz już ideę albo komendę. Używaj `apt-get`/`yum`/`dnf`/`pacman`/`pip`/`brew` (w zależności od systemu z którego korzystasz) aby zainstalować nowe programy.
+- Używaj [Explainshell](http://explainshell.com/) aby otrzymać pomocne informacje na temat komendy, opcji, potoku, itd. 
 
 
-## Everyday use
+## Podstawy
 
-- In Bash, use **Tab** to complete arguments or list all available commands and **ctrl-r** to search through command history (after pressing, type to search, press **ctrl-r** repeatedly to cycle through more matches, press **Enter** to execute the found command, or hit the right arrow to put the result in the current line to allow editing).
+- Naucz się podstaw Basha. , Wpisz `man bash` i przynajmniej przejrzyj całość; jest prosto napisana i niezbyt długia. Alternatywne powłoki mogą być fajne, ale Bash jest potężny i zawsze dostępny. (nauka *tylko* zsh, fish, itd., mimo, że kuszące na swoim laptopie, ogranicza Cię w wielu sytuacjach, na przykład w interakcji z istniejącymi już serwerami).
 
-- In Bash, use **ctrl-w** to delete the last word, and **ctrl-u** to delete all the way back to the start of the line. Use **alt-b** and **alt-f** to move by word, **ctrl-a** to move cursor to beginning of line,  **ctrl-e** to move cursor to end of line, **ctrl-k** to kill to the end of the line, **ctrl-l** to clear the screen. See `man readline` for all the default keybindings in Bash. There are a lot. For example **alt-.** cycles through previous arguments, and **alt-*** expands a glob.
+- Naucz się chociaż jednego tekstowego edytora. Idealnie było by nauczyć się Vim (`vi), ponieważ nie ma sobie równych przy przypadkowym edytowaniu plików e terminalu (nawet jeśli używasz Emacsa, złożonego IDE albo nowego hipsterskiego edytora większość czasu).
+
+- Umiej czytać dokumentację używając `man` (dla ciekawych, `man man` listuje numery sekcji, np. 1 to "zwyczajne" komendy, 5 to pliki/konwencje, a 8 są przeznaczone dla administracji). Wyszukiwanie stron manuali odbywa się z pomocą komendy `apropos`. Wiedz, że część komend nie plikami wykonywalnymi, ale są wbudowane w Basha i możesz otrzymać pomoc na temat ich użycia przez wywołanie komendy `help` oraz `help -d`.
+
+- Naucz się przekierowań wyjścia i wejścia przy pomocy `>` oraz `<` i potoków `|`. Wiedz, że `>` nadpisuje plik wynikowy, a `>>` dołącza do pliku wynikowego. Naucz się o standardowym strumieniu wyjścia oraz standardowym strumieniu błędów (stdout i stderr).
+
+- Naucz się obsłudze symboli wieloznacznych (globbing) `*` (i może `?` oraz `[`...`]`). Zrozum różnice pomiędzy pomiędzy pojedyńczym `'` oraz podwójnym `"` cudzysłowem. (Więcej na temat rozwijania zmiennych znajdziesz poniżej.)
+
+- Umiej zarządzać zadaniami w Bashu: `&`, **ctrl-z**, **ctrl-c**, `jobs`, `fg`, `bg`, `kill`, itd.
+
+- Poznaj `ssh` oraz podstawy uwierzytelniania bez użycia haseł poprzez `ssh-agent`, `ssh-add`, itd.
+
+- Podstawoe zarządzanie plikami: `ls` oraz `ls -l` ( w szczególności, naucz się co oznacza każda kolumna), `less`, `head`, `tail` and `tail -f` (albo lepiej `less +F`), `ln` oraz `ln -s` (naucz się różnic pomiędzy twardymi i miękkimi linkami), `chown`, `chmod`, `du` (dla szybkiego podsumowania użycia dysku: `du -hs *`). Zarządznie systemem pliku, `df`, `mount`, `fdisk`, `mkfs`, `lsblk`. Naucz się co to jest i-węzeł (`ls -i` or `df -i`).
+
+- Podstawowe zarządzanie siecią: `ip` oraz `ifconfig`, `dig`.
+
+- Umiej używać wyrażeń regularnych oraz różnych argumentów w `grep`/`egrep`. Warte poznania są: `-i`, `-o`, `-v`, `-A`, `-B` oraz `-C`.
+
+- Naucz się używać `apt-get`, `yum`, `dnf` or `pacman` (w zależności od dystrybucji) aby wyszukiwać i instalować paczki oprogramowania. Upewnij się że masz zainstalowanego `pip` aby zarządzać zależnościami pythonowymi (używane poniżej zależności najłatwiej zainstalować używając `pip`).
 
 
-- Alternatively, if you love vi-style key-bindings, use `set -o vi` (and `set -o emacs` to put it back).
+## Codzienne użytkowanie
 
-- For editing long commands, after setting your editor (for example `export EDITOR=vim`), **ctrl-x** **ctrl-e** will open the current command in an editor for multi-line editing. Or in vi style, **escape-v**.
+- W Bash, używaj **Tab** aby uzupełnić argumenty lub wylistować wszystkie dostępne komendy oraz **ctrl-r** aby przeszukiwać historię komend (po naciśnięciu kombinacji zacznij wpisywać wyszukiwaną komendę, naciskaj **ctrl-r** aby przeskakiwać pomiędzy wynikami, naciśnięcie **Enter** wykona znalezioną komendę, a naciśnięcie strzałki w prawo pozwoli Ci edytować aktualną linijkę).
 
-- To see recent commands, `history`. There are also many abbreviations such as `!$` (last argument) and `!!` last command, though these are often easily replaced with **ctrl-r** and **alt-.**.
+- W Bash, użycie **ctrl-w** usunie ostatnie słowo, a **ctrl-u** usunie wszystko do początku linii. Użyj **alt-b** oraz **alt-f** aby przemieszczać się co wyraz, **ctrl-a** aby ustawić kursor na początek linii, **ctrl-e** aby ustawić kursor na końcu linii, **ctrl-k** aby usunąć wszystko do końca linii, **ctrl-l** aby wyczyścić ekran. Sprawdź `man readline` w poszukiwaniu wszystkich podstawowych skrótów klawiaturowych w Bashu. Jest ich całkiem sporo. Na przykład: **alt-.** przeskakuje po poprzednich argumentach, a **alt-*** rozwija symbol wieloznaczny.
 
-- To go back to the previous working directory: `cd -`
+- Alternatywnie, jeśli wolisz skróty klawiaturowe używane w vi, wpisz `set -o vi` (`set -o emacs` przywróci poprzedni tryb).
 
-- If you are halfway through typing a command but change your mind, hit **alt-#** to add a `#` at the beginning and enter it as a comment (or use **ctrl-a**, **#**, **enter**). You can then return to it later via command history.
+- Aby edytować długie komendy, po ustawieniu edytora (na przykład `export EDITOR=vim`), należy przycisnąć **ctrl-x** **ctrl-e**. Jeśli preferujesz styl vi, użyj **escape-v**
 
-- Use `xargs` (or `parallel`). It's very powerful. Note you can control how many items execute per line (`-L`) as well as parallelism (`-P`). If you're not sure if it'll do the right thing, use `xargs echo` first. Also, `-I{}` is handy. Examples:
+- `history` pokazuje ostatnio używane komendy. Jest też wiele skrótów, takich jak `!$` (ostatni argument) oraz `!!` (ostatnia komenda), ale te są często łatwozastępowalne przez **ctrl-r** i **alt-.**.
+
+- Aby powrócić do poprzedniego katalogu domowego użyj `cd -`
+
+- Jeśli jesteś w połowie wprowadzania komendy i się rozmyślisz, naciśnij **alt-#** aby dodać `#` na początku linii (komentarz) albo użyj **ctrl-a**, **#**, **Enter**. Będziesz mógł wrócić do niej później poprzez historię komend.
+
+- Używaj `xargs` (albo `parallel`). Zauważ że możesz kontrolować ilość obiektów wykonywanych per linia (`-L`) jak również równolegle wykonanie komend (`-P`). Jeśli nie jesteś pewny jak dana komenda zadziała możesz najpierw użyć `xargs echo`. `-I{}` jest także przydatne. Przykłady:
 ```bash
       find . -name '*.py' | xargs grep some_function
       cat hosts | xargs -I{} ssh root@{} hostname
 ```
 
-- `pstree -p` is a helpful display of the process tree.
+- `pstree -p` jest pomocne do wyświetlenia drzewa procesów.
 
-- Use `pgrep` and `pkill` to find or signal processes by name (`-f` is helpful).
+- Użyj `pgrep` oraz `pkill` aby wyszukac lub wysłać sygnał do procesów używając nazwy procesu (`-f` jest pomocne)
 
-- Know the various signals you can send processes. For example, to suspend a process, use `kill -STOP [pid]`. For the full list, see `man 7 signal`
+- Znaj sygnały które możesz wysłać do procesu. Na przykład, aby zwiesić process, użyj `kill -STOP [numer procesu]`. Aby zobaczyć pełną listę, sprawdź `man 7 signal`.
 
-- Use `nohup` or `disown` if you want a background process to keep running forever.
+- Użyj `nohup` oraz `disown` jesli checsz aby process w tle działał cały czas.
 
-- Check what processes are listening via `netstat -lntp` or `ss -plat` (for TCP; add `-u` for UDP).
+- Aby sprawdzić jakie procesy nasłuchją w sieci użyj `netstat -lntp` lub `ss -plat` (dla TCP; aby wylistować procesy nasłuchujące na UDP dodaj `-u`).
 
-- See also `lsof` for open sockets and files.
+- `lsof` listuje aktualnie otwarte pliki i gniazda.
 
-- See `uptime` or `w` to know the how long the system has been running.
+- `uptime` lub `w` podaje informacje jak długo system działa.
 
-- Use `alias` to create shortcuts for commonly used commands. For example, `alias ll='ls -latr'` creates a new alias `ll`.
+- `alias` tworzy skróty dla często używanych komend. Na przykład `alias ll='ls -latr'` tworzy nowy alias ``ll`.
 
-- In Bash scripts, use `set -x` (or the variant `set -v`, which logs raw input, including unexpanded variables and comments) for debugging output. Use strict modes unless you have a good reason not to: Use `set -e` to abort on errors (nonzero exit code). Use `set -u` to detect unset variable usages. Consider `set -o pipefail` too, to on errors within pipes, too (though read up on it more if you do, as this topic is a bit subtle). For more involved scripts, also use `trap` on EXIT or ERR. A useful habit is to start a script like this, which will make it detect and abort on common errors and print a message:
+- W skryptach bashowych, `set -x` (lub inny wariant `set -v`, który loguje nieprzetworzone informacje, włączając to nierozwinięte zmienne oraz komentarze) używany jest do debugowania. Używaj tryby rygorystycznego `set -e` aby przerywać działanie w przypadku wystąpienia błędu (program skończy działanie z niezerowym kodem wyjścia). Użyj `set -u` aby wykrywać niestworzone nazwy zmiennych. Rozważ także użycie `set -o pipefail` jeśli używasz potoków (poczytaj na temat potoków jako iż temat ten jest bardzo subtelny. Dla bardziej zawiłych skryptów użyj `trap` podczas EXIT albo ERR. Wyłapiesz w ten sposób pospolite błędy, przerwiesz działanie oraz wypiszesz komunikat.
 ```bash
       set -euo pipefail
       trap "echo 'error: Script failed: see failed command above'" ERR
 ```
 
-- In Bash scripts, subshells (written with parentheses) are convenient ways to group commands. A common example is to temporarily move to a different working directory, e.g.
+- W skryptach bashowych, podpowłoki (zapisane w nawiasach) są wygodnym sposobem aby grupować wykonywane komendy. Często używanym przykładem jest tymczasowe przeniesienie się do innego katalogu roboczego, np.:
 ```bash
-      # do something in current dir
-      (cd /some/other/dir && other-command)
-      # continue in original dir
+      # zrób coś w katalogu roboczym
+      (cd /jakis/inny/katalog && inna-komenda)
+      # zrób coś w oryginalnym katalogu roboczym
 ```
 
-- In Bash, note there are lots of kinds of variable expansion. Checking a variable exists: `${name:?error message}`. For example, if a Bash script requires a single argument, just write `input_file=${1:?usage: $0 input_file}`. Arithmetic expansion: `i=$(( (i + 1) % 5 ))`. Sequences: `{1..10}`. Trimming of strings: `${var%suffix}` and `${var#prefix}`. For example if `var=foo.pdf`, then `echo ${var%.pdf}.txt` prints `foo.txt`.
+- W Bashu jest wiele sposobów pracy ze zmiennymi. Sprawdzanie czy zmienna istnieje: `${nazwa:?komunikat błędu}`. Na przykład, jeśli skrypt wymaga jednego argumentu użyj: `input_file=${1:?użycie: $0 input_file}`. Rozwinięcie arytmetyczne: `i=$(( (i + 1) % 5 ))`. Sekwencje: {1..10}`. Przycinanie ciągów: `${var%suffix}` and `${var#prefix}`. Na przykład jeśli var=foo.pdf, to `echo ${var%.pdf}.txt` wypisze `foo.txt`.
 
-- Brace expansion using `{`...`}` can reduce having to re-type similar text and automate combinations of items.  This is helpful in examples like `mv foo.{txt,pdf} some-dir` (which moves both files), `cp somefile{,.bak}` (which expands to `cp somefile somefile.bak`) or `mkdir -p test-{a,b,c}/subtest-{1,2,3}` (which expands all possible combinations and creates a directory tree).
+- Rozwinięcie nawiasowe przy użyciu `{`..`}` może zmniejszyć ilość podobnego tekstu i zautomatyzować kombinację obiektów. Na przykład `mv foo.{txt,pdf} katalog/` przeniesie dwa pliki do katalog, `cp somefile{,.bak}` (jest skrótem: `cp somefile somefile.bak`) albo `mkdir -p test-{a,b,c}/subtest-{1,2,3}` (która zostanie zinterpretowana jako stworzenie wszystkich możliwych kombinacji katalogów).
 
-- The output of a command can be treated like a file via `<(some command)`. For example, compare local `/etc/hosts` with a remote one:
+- Wyjście może zostać potraktowane jako plik przez użycie `<(jakaś komenda)`. Na przykład, aby porównać lokalny i zdalny plik `/etc/hosts`:
 ```sh
       diff /etc/hosts <(ssh somehost cat /etc/hosts)
 ```
 
-- Know about "here documents" in Bash, as in `cat <<EOF ...`.
+- Poznaj "here documents" w Bashu: `cat <<EOF ...`.
 
-- In Bash, redirect both standard output and standard error via: `some-command >logfile 2>&1` or `some-command &>logfile`. Often, to ensure a command does not leave an open file handle to standard input, tying it to the terminal you are in, it is also good practice to add `</dev/null`.
+_ W Bashu przekierowanie standardowego strumienia wyjścia i standardowego strumienia błędu przy pomocy: `komenda >plik_loga 2>&1` lub `komenda &> plik_loga`. Aby upewnić się, że komenda nie zostawi otwartego uchwytu do standardowego strumieniu wejścia, przywiązującego ją do terminala w którym się znajdujesz, często używa się `</dev/null`.
 
-- Use `man ascii` for a good ASCII table, with hex and decimal values. For general encoding info, `man unicode`, `man utf-8`, and `man latin1` are helpful.
+- Użyj `man ascii` aby zobaczyć tablicę ASCII z wartościami decymalnymi i hexadecymalnymi. Aby zajrzeć do ogólnej informacji o enkodowaniu użyj `mn unicode`, `man utf-8` oraz `man latic1`.
 
-- Use `screen` or [`tmux`](https://tmux.github.io/) to multiplex the screen, especially useful on remote ssh sessions and to detach and re-attach to a session. `byobu` can enhance screen or tmux providing more information and easier management. A more minimal alternative for session persistence only is `dtach`.
+- `screen` lub [`tmux`](https://tmux.github.io/) zmultipleksuje terminal. Jest to szczególnie przydatne podczas zdalnych sesji ssh kiedy potrzeba się odłączyć i podłączyć od sesji. `byobu` jest rozszerzeniem `screen` i `tmux`, które dostarcza więcej informacji oraz łatwiejsze zarządzanie. `dtach` jest minimalistyczną alternatywą dla trwałości sesji.
 
-- In ssh, knowing how to port tunnel with `-L` or `-D` (and occasionally `-R`) is useful, e.g. to access web sites from a remote server.
+- Użyj `-L` lub `-D` (oraz okazjonalnie `-R`) aby przetunelować port przy pomocy ssh. Jest to przydatne, np. aby otworzyć stronę używając zdalny serwer.
 
-- It can be useful to make a few optimizations to your ssh configuration; for example, this `~/.ssh/config` contains settings to avoid dropped connections in certain network environments, uses compression (which is helpful with scp over low-bandwidth connections), and multiplex channels to the same server with a local control file:
+- Kilka optymalizacji lokalnej konfiguracji ssh. Przykład `~/.ssh/config` zamieszczony poniżej zawiera ustawienia które unikają zamykania połączenia w niektórych środowiskach sieciowych, używa kompresji (która jest przydatna podczas używania `scp` w wolnych śieciach),  i multipleksuje kanały do tego samego serwera używając lokalnych plików kontrolnych:
 ```
       TCPKeepAlive=yes
       ServerAliveInterval=15
@@ -153,26 +151,26 @@ Notes:
       ControlPersist yes
 ```
 
-- A few other options relevant to ssh are security sensitive and should be enabled with care, e.g. per subnet or host or in trusted networks: `StrictHostKeyChecking=no`, `ForwardAgent=yes`
+- Kilka innych opcji dotyczących ssh są mogą mieć wpływ na bezpieczeństwo i powinny być włączane z pełną świadomością, np. tylko dla podsieci, jednego serwera, albo tylko dla zaufanych sieci:  `StrictHostKeyChecking=no`, `ForwardAgent=yes`
 
-- Consider [`mosh`](https://mosh.mit.edu/) an alternative to ssh that uses UDP, avoiding dropped connections and adding convenience on the road (requires server-side setup).
+- Rozważ użycie [`mosh`](https://mosh.mit.edu/) który jest alternatywą dla ssh używającą UDP, unijącą zgubionych połączeń i dodającą kilka ułatwień (wymaga konfiguracji po stronie serwera).
 
-- To get the permissions on a file in octal form, which is useful for system configuration but not available in `ls` and easy to bungle, use something like
+- Aby wyświetlić prawa do pliku w formie ósemkowej, która jest użyteczna w konfiguracji systemu ale nie jest dostępna w `ls`, użyj:
 ```sh
       stat -c '%A %a %n' /etc/timezone
 ```
 
-- For interactive selection of values from the output of another command, use [`percol`](https://github.com/mooz/percol) or [`fzf`](https://github.com/junegunn/fzf).
+- Dla interaktywnego wyboru wartości z informacji zwracanych przez inną komendę użyj [`percol`](https://github.com/mooz/percol) albo [`fzf`](https://github.com/junegunn/fzf).
 
-- For interaction with files based on the output of another command (like `git`), use `fpp` ([PathPicker](https://github.com/facebook/PathPicker)).
+- Aby oddziaływać na pliki na podstawie informacji zwracanych przez inną komendę (np jak `git`), użyj `fpp` ([PathPicker](https://github.com/facebook/PathPicker)).
 
-- For a simple web server for all files in the current directory (and subdirs), available to anyone on your network, use:
-`python -m SimpleHTTPServer 7777` (for port 7777 and Python 2) and `python -m http.server 7777` (for port 7777 and Python 3).
+- Aby uruchomić prosty serwer www ze wszystkimi plikami w aktualnym katalogu i dostępem do wszystkich podkatalogów, dostępny dla wszystkich w twojej sieci, użyj:
+`python -m SimpleHTTPServer 7777` (Python2.X. Serwer będzie nasłuchiwał na porcie 7777) lub `python -m http.server 7777` (Python3.X. Serwer będzie nasłuchiwał na porcie 7777).
 
-- For running a command with privileges, use `sudo` (for root) or `sudo -u` (for another user). Use `su` or `sudo bash` to actually run a shell as that user. Use `su -` to simulate a fresh login as root or another user.
+- Aby uruchomić komendę z przywilejami użyj `sudo` (dla przywilejów root) lub `sudo -u` (dla innego użytkownika`. Użyj `su` lub `sudo bash` aby uruchomić powłokę jak ten użytkownik. Użyj `su -` aby zasymulować świeże logowanie się jako root lub jako inny użytkownik.
 
 
-## Processing files and data
+## Przetwarzanie plików i danych
 
 - To locate a file by name in the current directory, `find . -iname '*something*'` (or similar). To find a file anywhere by name, use `locate something` (but bear in mind `updatedb` may not have indexed recently created files).
 
@@ -250,7 +248,7 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 - Use `zless`, `zmore`, `zcat`, and `zgrep` to operate on compressed files.
 
 
-## System debugging
+## Debugowanie systemu
 
 - For web debugging, `curl` and `curl -I` are handy, or their `wget` equivalents, or the more modern [`httpie`](https://github.com/jkbrzt/httpie).
 
@@ -291,7 +289,7 @@ mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
 - Use `dmesg` whenever something's acting really funny (it could be hardware or driver issues).
 
 
-## One-liners
+## Jednolinijkowce
 
 A few examples of piecing together commands:
 
@@ -334,7 +332,7 @@ A few examples of piecing together commands:
 ```
 
 
-## Obscure but useful
+## Niejasne ale przydatne
 
 - `expr`: perform arithmetic or boolean operations or evaluate regular expressions
 
