@@ -172,80 +172,79 @@ _ W Bashu przekierowanie standardowego strumienia wyjścia i standardowego strum
 
 ## Przetwarzanie plików i danych
 
-- To locate a file by name in the current directory, `find . -iname '*something*'` (or similar). To find a file anywhere by name, use `locate something` (but bear in mind `updatedb` may not have indexed recently created files).
+- Aby zlokalizować plik przy użyciu nazwy w aktualnym katalogu, użyj `find . -iname '*nazwa*'`. Aby znaleźć plik po nazwie gdziekolwiek w systemie `locate nazwa` (ale pamiętaj że `updatedb` może jeszcze nie posiadać stworzonego pliku w swoim indeksie).
 
-- For general searching through source or data files (more advanced than `grep -r`), use [`ag`](https://github.com/ggreer/the_silver_searcher).
+- Dla ogólnego przeszukiwania w źródłach lub plikach z danymi (bardziej zaawansowane niż `grep -r`) użyj [`ag`](https://github.com/ggreer/the_silver_searcher).
 
-- To convert HTML to text: `lynx -dump -stdin`
+- Aby zamienić HTML na tekst: `lynx -dump -stdin`
 
-- For Markdown, HTML, and all kinds of document conversion, try [`pandoc`](http://pandoc.org/).
+- Dla Markdown, HTML i wszystkich rodzajów konwersji dokumentów wypróbuj [`pandoc`](http://pandoc.org/).
 
-- If you must handle XML, `xmlstarlet` is old but good.
+- Jeśli musisz przetworzyć plik XML, użyj starego ale sprawdzonego `xmlstarlet`.
 
-- For JSON, use [`jq`](http://stedolan.github.io/jq/).
+- Do JSON, użyj [`jq`](http://stedolan.github.io/jq/).
 
-- For YAML, use [`shyaml`](https://github.com/0k/shyaml).
+- Do YAML, użyj [`shyaml`](https://github.com/0k/shyaml).
 
-- For Excel or CSV files, [csvkit](https://github.com/onyxfish/csvkit) provides `in2csv`, `csvcut`, `csvjoin`, `csvgrep`, etc.
+- Do plików Excel lub CSV, [csvkit](https://github.com/onyxfish/csvkit) dostarcza `in2csv`, `csvcut`, `csvjoin`, `csvgrep`, etc.
 
-- For Amazon S3, [`s3cmd`](https://github.com/s3tools/s3cmd) is convenient and [`s4cmd`](https://github.com/bloomreach/s4cmd) is faster. Amazon's [`aws`](https://github.com/aws/aws-cli) and the improved [`saws`](https://github.com/donnemartin/saws) are essential for other AWS-related tasks.
+- Do komunikacji z Amazon S3, [`s3cmd`](https://github.com/s3tools/s3cmd) is wygodny, natomiast [`s4cmd`](https://github.com/bloomreach/s4cmd) jest szybszy. Amazonowy [`aws`](https://github.com/aws/aws-cli) oraz ulepszony [`saws`](https://github.com/donnemartin/saws) są podstawowymi narzędziami dla innych zadań związanych z obsługą AWS.
 
-- Know about `sort` and `uniq`, including uniq's `-u` and `-d` options -- see one-liners below. See also `comm`.
+- Umiej używać `sort` oraz `uniq`, włączając opcje uni`-u` and `-d` -- zobacz jednolinijkowce poniżej. Sprawdź także `comm`.
 
-- Know about `cut`, `paste`, and `join` to manipulate text files. Many people use `cut` but forget about `join`.
+- Poznaj `cut`, `paste` oraz `join` aby manipulować plikami tekstowymi. Wiele osób używa `cut` ale zapomina o `join`.
 
-- Know about `wc` to count newlines (`-l`), characters (`-m`), words (`-w`) and bytes (`-c`).
+- Poznaj `wc` aby policzyć ilość nowych linii  (`-l`), znaków (`-m`), słów (`-w`) i bajtów (`-c`).
 
-- Know about `tee` to copy from stdin to a file and also to stdout, as in `ls -al | tee file.txt`.
+- Naucz się obsługi `tee` aby kopiować ze standardowego strumienia wejścia do pliku jak i do standardowego strumienia wyjścia, jak na przykład w `ls -al | tee file.txt`.
 
-- Know that locale affects a lot of command line tools in subtle ways, including sorting order (collation) and performance. Most Linux installations will set `LANG` or other locale variables to a local setting like US English. But be aware sorting will change if you change locale. And know i18n routines can make sort or other commands run *many times* slower. In some situations (such as the set operations or uniqueness operations below) you can safely ignore slow i18n routines entirely and use traditional byte-based sort order, using `export LC_ALL=C`.
+- Ustawione locale w systemie mają wpływ na działanie wielu komend, wliczając w to np. sposób sortowania lub wydajność. Większość instalacji Linuksa ustawi `LANG` oraz inne zmienne lokalizacyjne na podstawie twojeo wyboru, np US English, ale miej świadomość że procedury i18n mogą kilkukrotnie zwolnić po zmienie lokalizacji. W niektórych sytuacjach (jak na przykład operacja `set` albo `uniq` poniżej) możesz bezpiecznie całkowicie zignorować wolne procedury i18n i użycie tradycyjnych opartego na bajtach porządku sortowania, poprzez ustawienie `export LC_ALL=C`
 
-- Know basic `awk` and `sed` for simple data munging. For example, summing all numbers in the third column of a text file: `awk '{ x += $3 } END { print x }'`. This is probably 3X faster and 3X shorter than equivalent Python.
+- Poznaj podstawowe sposoby działania `awk` i `sed`. Na przykład, suma wszystkich numerów w trzeciej kolumnie pliku tekstowego: `awk '{ x += $3 } END { print x }'`. Jest to prawdopodobnie 3x szybsze i 3x krótsze niż realizacja tego w języku Python.
 
-- To replace all occurrences of a string in place, in one or more files:
+- Aby zamienić wszystkie wystąpienia ciągu znaków w pliku bądź plikach:
 ```sh
-      perl -pi.bak -e 's/old-string/new-string/g' my-files-*.txt
+      perl -pi.bak -e 's/stary-ciąg/nowy-ciąg/g' my-files-*.txt
 ```
 
-- To rename multiple files and/or search and replace within files, try [`repren`](https://github.com/jlevy/repren). (In some cases the `rename` command also allows multiple renames, but be careful as its functionality is not the same on all Linux distributions.)
+- Aby zmienić nazwę wielu plików oraz/lub poszukać i zastąpić w plikach, użyj [`repren`](https://github.com/jlevy/repren). (W niektórych przypadkach komenda `rename` pozwala na wiele zmian nazw, ale bądź bardzo ostrożny ponieważ ta funkcjonalność nie działa tak samo we wszystkich dystrybucjach Linuksa.)
 ```sh
-      # Full rename of filenames, directories, and contents foo -> bar:
+      # Pełna zmiana nazw plików, katalogów z foo -> bar:
       repren --full --preserve-case --from foo --to bar .
-      # Recover backup files whatever.bak -> whatever:
+      # Odzyskiwanie z plików backupu whatever.bak -> whatever:
       repren --renames --from '(.*)\.bak' --to '\1' *.bak
-      # Same as above, using rename, if available:
+      # Tak samo jak poprzednio tylko z użyciem `rename` (jeśli jest dostępne w systemie)
       rename 's/\.bak$//' *.bak
 ```
-
-- As the man page says, `rsync` really is a fast and extraordinarily versatile file copying tool. It's known for synchronizing between machines but is equally useful locally. It also is among the [fastest ways](https://web.archive.org/web/20130929001850/http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html) to delete large numbers of files:
+- Za stronami dokumentacji `rsync` jest szybkim i wszechstronnymi narzędziem do kopiowania plików. Jest znany z synchronizowania plików pomiędzy maszynami, ale jest także tak samo użyteczny lokalnie. Jest także jednym z [najszybszych sposobów](https://web.archive.org/web/20130929001850/http://linuxnote.net/jianingy/en/linux/a-fast-way-to-remove-huge-number-of-files.html) na usunięcie dużej ilości plików:
 ```sh
-mkdir empty && rsync -r --delete empty/ some-dir && rmdir some-dir
+mkdir pusty && rsync -r --delete pusty/ jakis-katalog && rmdir jakis-katalog
 ```
 
-- Use `shuf` to shuffle or select random lines from a file.
+- Użyj `shuf` aby przetasować lub wybrać przypadkową linijkę z pliku.
 
-- Know `sort`'s options. For numbers, use `-n`, or `-h` for handling human-readable numbers (e.g. from `du -h`). Know how keys work (`-t` and `-k`). In particular, watch out that you need to write `-k1,1` to sort by only the first field; `-k1` means sort according to the whole line. Stable sort (`sort -s`) can be useful. For example, to sort first by field 2, then secondarily by field 1, you can use `sort -k1,1 | sort -s -k2,2`.
+- Znaj opcje `sort`. Dla numerów, użyj `-n` lub `-h` jeśli interesują nas te czytelne dla człowieka (np. z `du -h`). Poznaj działanie kluczy (`-t` i `-k`). W szczególności, zauważ że `-k1,1` posortuje po pierwszym polu, a `-k1` posortuje według całej linii. Stateczne sortowanie (`sort -s`) może być użyteczne. Na przykład jeśli chcemy najpierw posortować na podstawie pola 2 a później na podstawie pola 1, możesz użyć `sort -k1,1 | sort -s -k2,2`.
 
-- If you ever need to write a tab literal in a command line in Bash (e.g. for the -t argument to sort), press **ctrl-v** **[Tab]** or write `$'\t'` (the latter is better as you can copy/paste it).
+- Jeśli kiedykolwiek będziesz potrzebował użyć symbolu tabulatora w linii komend w Bashu (np podczas użycia argumentu `-t` w `sort`), naciśnij **ctrl-v** **[Tab]** lub wpisz `$'\t'` (drugi przykład jest lepszy, ponieważ możesz go skopiować i wkleić).
 
-- The standard tools for patching source code are `diff` and `patch`. See also `diffstat` for summary statistics of a diff and `sdiff` for a side-by-side diff. Note `diff -r` works for entire directories. Use `diff -r tree1 tree2 | diffstat` for a summary of changes. Use `vimdiff` to compare and edit files.
+- Standardowymi narzędziami w pracy z łatkami kodu źródłowego są `diff` i `patch`. Sprawdź także `diffstat` aby podsumować roźnice oraz `sdiff` aby wyświetlić różnice obok siebie. Zapamiętaj że `diff -r` działa dla całych katalogów. Użyj `diff -r drzewo1 drzewo2 | diffstat` aby wypisać podsumowanie zmian. Użyj `vimdiff` aby porównać i edytować pliki.
 
-- For binary files, use `hd`, `hexdump` or `xxd` for simple hex dumps and `bvi` or `biew` for binary editing.
+- Do plików binarnych użyj `hd`, `hexdump` lub `xxd` aby wyświetlić je w trybie szestnastkowym a `bvi` lub `biew` aby je edytować.
 
-- Also for binary files, `strings` (plus `grep`, etc.) lets you find bits of text.
+- W przypadku plików binarnych możesz użyć `strings` (plus `grep`, itd.) w poszukiwaniu kawałków tekstu.
 
-- For binary diffs (delta compression), use `xdelta3`.
+- Aby porównać binarnie pliki (kompresja na podstawie delt), użyj `xdelta3`.
 
-- To convert text encodings, try `iconv`. Or `uconv` for more advanced use; it supports some advanced Unicode things. For example, this command lowercases and removes all accents (by expanding and dropping them):
+- Aby zamienić enkodowanie pliku, wypróbuj `iconv` lub `uconv` dla bardziej zaawansowanych zastosowań, który zawiera kilka rzeczy więcej dotyczących Unicode. Na przykład ta komenda zmienia wszystko na małe literki i usuwa wszystkie akcenty (poprzez rozwinięcie i usunięcie ich): 
 ```sh
       uconv -f utf-8 -t utf-8 -x '::Any-Lower; ::Any-NFD; [:Nonspacing Mark:] >; ::Any-NFC; ' < input.txt > output.txt
 ```
 
-- To split files into pieces, see `split` (to split by size) and `csplit` (to split by a pattern).
+- Aby podzielić plik na mniejsze części użyj `split` (dzieli na podstawie rozmiaru) oraz `csplit` (dzieli na podstawie wzorca)
 
-- To manipulate date and time expressions, use `dateadd`, `datediff`, `strptime` etc. from [`dateutils`](http://www.fresse.org/dateutils/).
+- Aby manipulować wyrażeniami daty i czasu, użyj `dateadd`, `datediff`, `strptime`, itd. z [`dateutils`](http://www.fresse.org/dateutils/).
 
-- Use `zless`, `zmore`, `zcat`, and `zgrep` to operate on compressed files.
+- Użyj `zless`, `zmore`, `zcat` oraz `zgrep` aby operować na plikach skompresowanych.
 
 
 ## Debugowanie systemu
